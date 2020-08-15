@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="{{ url_for('static',filename='jquery-3.4.1.js') }}"></script>
+    <script src="{{ url_for('static',filename='topiclist.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap-3.3.7/css/bootstrap.min.css') }}">
+    <!-- <script src="../static/jquery-3.4.1.js"></script>
+    <script src="../static/topiclist.js"></script>
+    <script src="../static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap-3.3.7/css/bootstrap.min.css"> -->
+</head>
+<style type="text/css">
+th,
+td {
+    text-align: center;
+}
+
+.infoPage {
+    position: fixed;
+    top: 20%;
+    left: 35%;
+    border: 1px solid black;
+    background: #E3E3E3;
+    border-radius: 10%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#addPage,
+#updatePage {
+    display: none;
+}
+</style>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">话题列表</a>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div style="position: relative;">
+        <div id="listContainer">
+        </div>
+    </div>
+</body>
+
+</html>

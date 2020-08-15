@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="{{ url_for('static',filename='jquery-3.4.1.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap-3.3.7/css/bootstrap.min.css') }}">
+    <title>登录</title>
+    <style type="text/css">
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+    }
+
+    body {
+        background-image: url(../static/img/background.jpg);
+        background-size: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .loginContainer {
+        width: 600px;
+        background-color: white;
+        opacity: 0.8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+    }
+
+    .description {
+        width: 100px;
+    }
+
+    .radio {
+        width: 30%;
+        text-align: center;
+    }
+
+    .href {
+        font-size: 10px;
+    }
+    </style>
+    <script type="text/javascript">
+    function hiddenView() {
+        var registerContainer = $("#registerContainer").get(0);
+        registerContainer.style.visibility = "hidden";
+    }
+
+    function showView() {
+        var registerContainer = $("#registerContainer").get(0);
+        registerContainer.style.visibility = "visible";
+    }
+
+    function register() {
+        var account = $("#regAccount").get(0).value;
+        var password = $("#regPassword").get(0).value;
+        var repassword = $("#regRepassword").get(0).value;
+        if (password == repassword) {
+            $.ajax({
+                url: '/register',
+                type: 'post',
+                data: {
+                    'account': account,
+                    'password': password
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.status) {
+                        alert('注册成功');
+                        hiddenView();
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function(xhr, message, exception) {
+                    alert(message);
+                }
+            })
+        } else {
+            alert('两次密码输入不一致');
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <div class="page-header" style="text-align: center;">
+        <h1 style="color: white">欢迎使用疫情实时动态系统</h1>
+    </div>
+    <div class="loginContainer">
+        <h2>登录</h2>
+        <form class="form-horizontal" role="form" action="/login" method="POST">
+            <div class="form-group">
+                <label for="account" class="col-sm-3 control-label">账户</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="account" name="account" placeholder="请输入账户">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-3 control-label">密码</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default" style="width: 100%;">登录</button>
+                </div>
+            </div>
+        </form>
+        <div onclick="showView()">
+            还没有账号？点击注册
+        </div>
+    </div>
+    <div style="position: absolute; float: left; left: 50%; visibility: hidden;" id="registerContainer">
+        <div style="position: relative; float: left; left: -50%; border-radius: 20px; padding: 10px; display: flex; align-items: center; flex-direction: column; background-color: #F8F8F8;">
+            <div>
+                <h3>用户注册</h3>
+            </div>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">账号</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="regAccount" placeholder="请输入您的账户">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">密码</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" id="regPassword" placeholder="请输入密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">确认密码</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" id="regRepassword" placeholder="请输入密码">
+                    </div>
+                </div>
+                <div class="form-group" style="display: flex; justify-content: center;">
+                    <button type="button" class="btn btn-success" onclick="register()">提交</button>
+                    <button type="reset" class="btn btn-danger" onclick="hiddenView()">取消</button>
+                </div>
+        </div>
+    </div>
+</body>
+
+</html>

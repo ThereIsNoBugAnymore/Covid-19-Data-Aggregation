@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="{{ url_for('static',filename='jquery-3.4.1.js') }}"></script>
+    <script src="{{ url_for('static',filename='comment.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap-3.3.7/css/bootstrap.min.css') }}">
+    <!-- <script src="../static/jquery-3.4.1.js"></script>
+    <script src="../static/comment.js"></script>
+    <script src="../static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap-3.3.7/css/bootstrap.min.css"> -->
+</head>
+<style type="text/css">
+.commentItem {
+    display: flex;
+    flex-direction: row;
+}
+
+.account {
+    width: 6%;
+    text-align: center;
+}
+
+.content {
+    width: 90%;
+}
+</style>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">评论区</a>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div style="position: relative;">
+        {% if not isAdmin %}
+        <div>
+            <form class="form-horizontal" role="form">
+                <textarea class="form-control" rows="3" placeholder="评论" id="comment"></textarea>
+                <button type="button" class="btn btn-info" onclick="submitComment()">评论</button>
+            </form>
+        </div>
+        {% endif %}
+        <div>
+            <ul class="list-group" id="ul">
+                {% for item in comments %}
+                    <div class="commentItem">
+                        <li class="list-group-item account">{{item.get('account')}}</li>
+                        <li class="list-group-item content">{{item.get('comment')}}</li>
+                        {% if isAdmin %}
+                            <button class="btn btn-danger del">删除</button>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
